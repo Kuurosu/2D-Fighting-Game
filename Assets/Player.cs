@@ -16,14 +16,26 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Reset moveDelta
-        moveDelta = Vector3.zero;
 
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
 
-        Debug.Log(x);
-        Debug.Log(y);
+        // Reset moveDelta
+        moveDelta = new Vector3(x, y, 0);
+
+        //Swaps sprite facing left and right
+        if (moveDelta.x > 0)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if (moveDelta.x < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        //Make it move
+        transform.Translate(moveDelta * Time.deltaTime);
+
 
     }
 
